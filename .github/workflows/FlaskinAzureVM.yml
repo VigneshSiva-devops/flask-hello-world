@@ -4,3 +4,28 @@ on:
   push:
     branches:
       - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code 
+      uses: actions/checkout@v2
+
+    - name: Connect to Azure VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_IP}}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /home/azureuser/flask-hello-world
+          git add .
+          git commit -m "Commit recent changes"
+          git pull origin
+          sudo systemctl daemon-reload
+          sudo systemctl restart flask-hello-world.service
+          sudo systemctl status flask-hello-world.service
+          timeout 5s bash -c 'echo Waiting for flask to run'
+          sudo systemctl status flask-hello-world.service                
