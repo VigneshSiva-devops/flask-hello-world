@@ -1,4 +1,4 @@
-name: Deploy to VM
+name: Deploy to Azure VM
 
 on:
   push:
@@ -31,4 +31,5 @@ jobs:
           sudo systemctl status flask-hello-world.service
           timeout 5s bash -c 'echo Waiting for flask to restart and run'
           sudo systemctl status flask-hello-world.service
-          #curl http://127.0.0.1             
+          curl http://127.0.0.1:9130 
+          echo "Deployment successfull!"           
