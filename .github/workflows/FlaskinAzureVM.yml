@@ -21,6 +21,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd /home/azureuser/flask-hello-world
+          git config --global user.email "jananidhaylan856@gmail.com"
+          git config --global user.name "VigneshSiva-devops"
           git add .
           git commit -m "Commit recent changes"
           git pull origin
