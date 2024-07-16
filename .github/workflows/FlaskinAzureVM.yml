@@ -31,9 +31,6 @@ jobs:
           sudo systemctl status flask-hello-world.service
           echo "Waiting for flask to restart and run"
           sleep 10
-          # sudo systemctl status flask-hello-world.service | grep running      #check running state without exposing private ip
-          private_ip=$(hostname -I | awk '{print $1}')
-          echo "::add-mask::$private_ip"  # Mask the private IP address
-          curl -v http://127.0.0.1:9130  # Add -v for verbose output
-          # curl http://127.0.0.1:9130 
+          sudo systemctl status flask-hello-world.service | grep -e active -e running      #check just running state without exposing private ip
+          curl http://127.0.0.1:9130 
           echo -e "Deployment successfull!\n"           
