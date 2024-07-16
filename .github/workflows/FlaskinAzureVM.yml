@@ -29,7 +29,8 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl restart flask-hello-world.service
           sudo systemctl status flask-hello-world.service
-          timeout 15s bash -c 'echo Waiting for flask to restart and run'
+          echo "Waiting for flask to restart and run"
+          sleep 10
           sudo systemctl status flask-hello-world.service
           curl http://127.0.0.1:9130 
           echo "Deployment successfull!"           
